@@ -7,5 +7,5 @@ function(add_gtest_executable target)
     target_compile_features(${target} PRIVATE cxx_std_20)
 
     include(GoogleTest)
-    gtest_discover_tests(${target})
+    gtest_discover_tests(${target} PROPERTIES LABELS unit_test)
 endfunction()

@@ -8,18 +8,9 @@
             "problemMatcher": "$gcc"
         },
         {
-            "label": "CMake: Build",
-            "type": "shell",
-            "command": "cmake --build build -j",
-            "dependsOn": "CMake: Configure",
-            "dependsOrder": "sequence",
-            "problemMatcher": "$gcc",
-            "group": "build"
-        },
-        {
             "label": "Siv3D: フルビルド",
             "type": "shell",
-            "command": "cmake --build build -j",
+            "command": "cmake --build build --parallel 4",
             "dependsOn": "CMake: Configure",
             "dependsOrder": "sequence",
             "problemMatcher": "$gcc",
@@ -28,7 +19,7 @@
         {
             "label": "Siv3D: アクティブなソースファイルをビルド",
             "type": "shell",
-            "command": "cmake --build build --target active_source -j",
+            "command": "cmake --build build --target active_source --parallel 4",
             "dependsOn": "Siv3D: アクティブなソースファイルを構成",
             "dependsOrder": "sequence",
             "problemMatcher": "$gcc",
@@ -60,6 +51,36 @@
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "GoogleTest: このソースファイルをビルド",
+            "type": "shell",
+            "command": "cmake --build build --target ${fileBasenameNoExtension} --parallel 4",
+            "dependsOn": "CMake: Configure",
+            "dependsOrder": "sequence",
+            "problemMatcher": "$gcc",
+            "group": "build"
+        },
+        {
+            "label": "GoogleTest: このソースファイルをビルドして実行",
+            "type": "shell",
+            "command": "./build/test/${fileBasenameNoExtension}",
+            "dependsOn": "GoogleTest: このソースファイルをビルド",
+            "dependsOrder": "sequence",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "GoogleTest: すべての単体テストをビルドして実行",
+            "type": "shell",
+            "command": "cmake --build build --parallel 4 && ctest --test-dir build --output-on-failure -L unit_test",
+            "dependsOn": "CMake: Configure",
+            "dependsOrder": "sequence",
+            "problemMatcher": "$gcc",
             "group": "build"
         },
         {
