@@ -1,0 +1,74 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: Configure",
+            "type": "shell",
+            "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DACTIVE_SOURCE=",
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "CMake: Build",
+            "type": "shell",
+            "command": "cmake --build build -j",
+            "dependsOn": "CMake: Configure",
+            "dependsOrder": "sequence",
+            "problemMatcher": "$gcc",
+            "group": "build"
+        },
+        {
+            "label": "Siv3D: フルビルド",
+            "type": "shell",
+            "command": "cmake --build build -j",
+            "dependsOn": "CMake: Configure",
+            "dependsOrder": "sequence",
+            "problemMatcher": "$gcc",
+            "group": "build"
+        },
+        {
+            "label": "Siv3D: アクティブなソースファイルをビルド",
+            "type": "shell",
+            "command": "cmake --build build --target active_source -j",
+            "dependsOn": "Siv3D: アクティブなソースファイルを構成",
+            "dependsOrder": "sequence",
+            "problemMatcher": "$gcc",
+            "group": "build"
+        },
+        {
+            "label": "Siv3D: アクティブなソースファイルを構成",
+            "type": "shell",
+            "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DACTIVE_SOURCE=${file}",
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Siv3D: アクティブなソースファイルをビルドして実行",
+            "type": "shell",
+            "command": "./build/bin/active_source",
+            "dependsOn": "Siv3D: アクティブなソースファイルをビルド",
+            "dependsOrder": "sequence",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "Siv3D: アクティブなソースファイルを実行",
+            "type": "shell",
+            "command": "./build/bin/active_source",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "CMake: Test",
+            "type": "shell",
+            "command": "ctest --test-dir build --output-on-failure",
+            "dependsOn": "CMake: Build",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        }
+    ]
+}

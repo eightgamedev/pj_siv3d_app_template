@@ -34,8 +34,5 @@
 # Build
 build/
 
-# Visual Studio Code
-.vscode/
-
 # Logs
 /logs/

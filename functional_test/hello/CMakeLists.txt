@@ -1,0 +1,1 @@
+add_default_build(hello_test)
