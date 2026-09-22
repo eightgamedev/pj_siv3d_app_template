@@ -17,6 +17,8 @@ add_subdirectory(third_party/OpenSiv3D/Linux third_party/OpenSiv3D-build EXCLUDE
 # OpenSiv3D's Linux headers select native intrinsics when SSE4.2 is enabled.
 target_compile_options(Siv3D PRIVATE -msse4.2)
 
+add_subdirectory(src)
+
 if(SIV3D_BUILD_FUNCTIONAL_TEST)
     enable_testing()
     add_subdirectory(functional_test)
@@ -29,11 +31,10 @@ if(ACTIVE_SOURCE)
 
     add_executable(active_source
         "${ACTIVE_SOURCE}"
-        "${CMAKE_SOURCE_DIR}/src/hello.cpp"
     )
-    target_link_libraries(active_source PRIVATE Siv3D)
+    target_link_libraries(active_source PRIVATE Siv3D app_components)
     target_include_directories(active_source PRIVATE
-        "${CMAKE_SOURCE_DIR}/src"
+        "${CMAKE_SOURCE_DIR}/src/hello"
         "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/include"
         "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/include/ThirdParty"
         "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/src"

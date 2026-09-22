@@ -1,11 +1,8 @@
 function(add_default_build target)
-    add_executable(${target}
-        ${target}.cpp
-        "${CMAKE_SOURCE_DIR}/src/hello.cpp"
-    )
-    target_link_libraries(${target} PRIVATE Siv3D)
+    add_executable(${target} ${target}.cpp)
+    target_link_libraries(${target} PRIVATE Siv3D app_components)
     target_include_directories(${target} PRIVATE
-        "${CMAKE_SOURCE_DIR}/src"
+        "${CMAKE_SOURCE_DIR}/src/hello"
         "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/include"
         "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/include/ThirdParty"
         "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/src"
