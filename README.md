@@ -3,7 +3,7 @@
 このプロジェクトでは、OpenSiv3D を Git サブモジュールとして管理します。
 再利用する部品や、単体では実行しない関数は `src/` に置きます。
 実際に起動して動作を確認するプログラムは `functional_test/` に置きます。
-SDK は `third_party/OpenSiv3D` から共有します。
+SDK は `external/OpenSiv3D` の Git サブモジュールから共有します。
 
 ## src と functional_test の使い分け
 
@@ -98,3 +98,35 @@ int main()
 
 OpenSiv3D に必要な Ubuntu パッケージは別途インストールしてください。
 詳しくは OpenSiv3D 公式の Linux ビルド手順を確認してください。
+
+## GoogleTest の単体テストを追加する
+
+単体テストは `test/` に置きます。GoogleTest は
+`external/googletest/` の Git サブモジュールとして管理します。
+初回取得時は次のコマンドを実行してください。
+
+```bash
+git submodule update --init --recursive
+```
+
+テストのソースファイルと同名のターゲットを `test/CMakeLists.txt` に追加します。
+
+```text
+test/
+├── CMakeLists.txt
+└── hello_UnitTest.cpp
+```
+
+`test/CMakeLists.txt`:
+
+```cmake
+include(${CMAKE_SOURCE_DIR}/cmake/add_gtest_executable.cmake)
+add_gtest_executable(hello_UnitTest)
+```
+
+テストは次のコマンドでビルド・実行できます。
+
+```bash
+cmake --build build -j
+ctest --test-dir build --output-on-failure
+```

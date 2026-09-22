@@ -1,4 +1,7 @@
-[submodule "third_party/OpenSiv3D"]
-	path = third_party/OpenSiv3D
+[submodule "external/OpenSiv3D"]
+	path = external/OpenSiv3D
 	url = https://github.com/Siv3D/OpenSiv3D.git
 	branch = main
+[submodule "external/googletest"]
+	path = external/googletest
+	url = https://github.com/google/googletest.git

@@ -3,10 +3,10 @@ function(add_default_build target)
     target_link_libraries(${target} PRIVATE Siv3D app_components)
     target_include_directories(${target} PRIVATE
         "${CMAKE_SOURCE_DIR}/src/hello"
-        "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/include"
-        "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/include/ThirdParty"
-        "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/src"
-        "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Siv3D/src/ThirdParty"
+        "${CMAKE_SOURCE_DIR}/external/OpenSiv3D/Siv3D/include"
+        "${CMAKE_SOURCE_DIR}/external/OpenSiv3D/Siv3D/include/ThirdParty"
+        "${CMAKE_SOURCE_DIR}/external/OpenSiv3D/Siv3D/src"
+        "${CMAKE_SOURCE_DIR}/external/OpenSiv3D/Siv3D/src/ThirdParty"
     )
     target_compile_features(${target} PRIVATE cxx_std_20)
 
@@ -16,7 +16,7 @@ function(add_default_build target)
 
     add_custom_command(TARGET ${target} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-            "${CMAKE_SOURCE_DIR}/third_party/OpenSiv3D/Linux/App/resources"
+            "${CMAKE_SOURCE_DIR}/external/OpenSiv3D/Linux/App/resources"
             "$<TARGET_FILE_DIR:${target}>/resources"
     )
 
